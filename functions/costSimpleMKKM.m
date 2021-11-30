@@ -1,4 +1,4 @@
-function [cost,Hstar] = costMKKM(KH,StepSigma,DirSigma,Sigma,numclass)
+function [cost,Hstar] = costSimpleMKKM(KH,StepSigma,DirSigma,Sigma,numclass)
 
 global nbcall
 nbcall=nbcall+1;

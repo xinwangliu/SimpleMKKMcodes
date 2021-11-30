@@ -1,4 +1,4 @@
-function [gamma,obj]= updateabsentkernelweightsV3(T,K,r)
+function [gamma,obj]= updateabsentkernelweightsV3(T,K)
 
 num = size(K,1);
 nbkernel = size(K,3);
@@ -8,7 +8,7 @@ a = zeros(nbkernel,1);
 for p = 1 : nbkernel
     a(p) = trace( K(:,:,p) * U0);
 end
-gamma = (r./a)/sum((r.^2)./a);
+gamma = (1./a)/sum(1./a);
 gamma(gamma<eps)=0;
 gamma = gamma/sum(gamma);
 obj = a'*(gamma.^2);

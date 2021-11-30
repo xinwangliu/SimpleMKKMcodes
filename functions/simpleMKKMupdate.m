@@ -1,6 +1,5 @@
-function [Sigma,Hstar,CostNew] = MKKMupdate(KH,Sigma,GradNew,CostNew,numclass,option)
+function [Sigma,Hstar,CostNew] = simpleMKKMupdate(KH,Sigma,GradNew,CostNew,numclass,option)
 
-%Author Xinwang Liu
 %------------------------------------------------------------------------------%
 % Initialize
 %------------------------------------------------------------------------------%
@@ -65,7 +64,7 @@ end
 %-----------------------------------------------------
 
 while costmax<costmin
-    [costmax,Hstar] = costMKKM(KH,stepmax,desc,SigmaNew,numclass);
+    [costmax,Hstar] = costSimpleMKKM(KH,stepmax,desc,SigmaNew,numclass);
     
     if costmax<costmin
         costmin = costmax;
@@ -73,8 +72,8 @@ while costmax<costmin
     %-------------------------------
     % Numerical cleaning
     %-------------------------------
-%     SigmaNew(find(abs(SigmaNew<option.numericalprecision)))=0;
-%      SigmaNew=SigmaNew/sum(SigmaNew);
+    SigmaNew(find(abs(SigmaNew<option.numericalprecision)))=0;
+    SigmaNew=SigmaNew/sum(SigmaNew);
         % SigmaNew  =SigmaP;
         % project descent direction in the new admissible cone
         % keep the same direction of descent while cost decrease
@@ -104,8 +103,8 @@ while (stepmax-stepmin)>option.goldensearch_deltmax*(abs(deltmax)) && stepmax > 
     stepmedr = stepmin+(stepmax-stepmin)/gold;
     stepmedl = stepmin+(stepmedr-stepmin)/gold;
     
-    [costmedr,Hstarr] = costMKKM(KH,stepmedr,desc,SigmaNew,numclass);
-    [costmedl,Hstarl] = costMKKM(KH,stepmedl,desc,SigmaNew,numclass);     
+    [costmedr,Hstarr] = costSimpleMKKM(KH,stepmedr,desc,SigmaNew,numclass);
+    [costmedl,Hstarl] = costSimpleMKKM(KH,stepmedl,desc,SigmaNew,numclass);     
             
     Step = [stepmin stepmedl stepmedr stepmax];
     Cost = [costmin costmedl costmedr costmax];

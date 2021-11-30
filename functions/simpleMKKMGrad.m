@@ -1,4 +1,4 @@
-function [grad] = MKKMGrad(KH,Hstar,Sigma)
+function [grad] = simpleMKKMGrad(KH,Hstar,Sigma)
 
 d=size(KH,3);
 grad=zeros(d,1);
